@@ -1,0 +1,12 @@
+earthengine-api
+geemap
+geopandas
+osmnx
+pybdshadow
+pvlib
+rasterio
+numpy
+folium
+pandas
+matplotlib
+suncalc

@@ -14,6 +14,7 @@
 # %% Step 2: Import and authenticate with Google Earth Engine
 import ee
 
+
 # First time only: this opens a browser window to log in.
 # After that, it remembers you.
 ee.Authenticate()
@@ -21,7 +22,7 @@ ee.Authenticate()
 # Replace 'your-project-id' with your Google Cloud project ID.
 # Don't have one? Go to https://console.cloud.google.com/ and create one (free).
 # Then enable the Earth Engine API for that project.
-ee.Initialize(project='your-project-id')  # <-- CHANGE THIS
+ee.Initialize(project='canopix')  # <-- CHANGE THIS
 
 print("✅ Connected to Google Earth Engine!")
 
@@ -33,11 +34,11 @@ print("✅ Connected to Google Earth Engine!")
 # Example below: Central Delhi (Connaught Place area)
 # Change this to YOUR city / neighborhood.
 
-WEST = 77.20
-SOUTH = 28.61
-EAST = 77.24
-NORTH = 28.65
-CITY_NAME = "Central Delhi"  # just for labels
+WEST = 77.88
+SOUTH = 21.91
+EAST = 77.92
+NORTH = 21.93
+CITY_NAME = "Amla, Madhya Pradesh"  # just for labels
 
 bbox = ee.Geometry.Rectangle([WEST, SOUTH, EAST, NORTH])
 print(f"✅ Study area set: {CITY_NAME} ({WEST}, {SOUTH}) to ({EAST}, {NORTH})")
@@ -69,6 +70,8 @@ print(f"✅ Landsat 9 data loaded for {START_DATE} to {END_DATE}")
 
 # %% Step 5: Visualize the heatmap!
 import geemap
+import os
+import webbrowser
 
 Map = geemap.Map()
 Map.centerObject(bbox, 15)
@@ -85,7 +88,15 @@ Map.addLayer(landsat, vis_params, f'Surface Temperature °C — {CITY_NAME}')
 Map.addLayer(bbox, {'color': 'white'}, 'Study Area')
 
 Map.addLayerControl()
-Map
+
+# Save to HTML and open in browser (avoids VS Code widget bugs)
+output_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'results')
+os.makedirs(output_dir, exist_ok=True)
+output_path = os.path.join(output_dir, 'week1_heatmap.html')
+Map.to_html(output_path)
+print(f"✅ Map saved to: {output_path}")
+print("Opening in browser...")
+webbrowser.open(output_path)
 
 # %% Step 6: Print some stats
 #

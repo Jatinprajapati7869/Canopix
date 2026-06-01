@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Earth Engine
+.config/earthengine/
+
+# Results (large files - regenerate from notebooks)
+# Uncomment if you don't want to track results:
+# results/*.html
+# results/*.geojson
+
+# Personal notes
+learning_log.md
+
+# OSMnx Cache
+notebooks/cache/
